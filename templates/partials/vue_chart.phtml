@@ -1,0 +1,70 @@
+<!-- Vue.js -->
+<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+<script src="//cdn.jsdelivr.net/npm/vue-apexcharts"></script>
+
+<div id="chart">
+    <apexchart type=line height=360 :options="chartOptions" :series="series" />
+</div>
+
+
+<script>
+    // Convert data
+    var dataJson = <?php echo $chartData; ?>;
+    dataJson = JSON.parse(dataJson);
+
+    // Create an array of objects for chart
+    var arrPrograms = [];
+    
+    for (var key in dataJson.Rows) {
+        arrPrograms.push({
+            'name': key,
+            'data': dataJson.Rows[key]
+        });
+    }
+
+    // Chart on Vue
+    new Vue({
+        el: '#chart',
+        components: {
+            apexchart: VueApexCharts,
+        },
+        data: {
+            series: arrPrograms,
+            chartOptions: {
+                chart: {
+                    toolbar: {
+                        show: true,
+                    }
+                },
+                //colors: ['#77B6EA', '#545454'],
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                grid: {
+                    borderColor: '#e7e7e7',
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                markers: {
+                    size: 7
+                },
+                xaxis: {
+                    categories: dataJson.Columns,
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'center',
+                    floating: false,
+                    offsetY: 0,
+                    offsetX: 0
+                }
+            }
+        },
+    })
+</script>

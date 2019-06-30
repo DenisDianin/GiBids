@@ -1,0 +1,54 @@
+<?php
+
+use app\classes\VisualBidsFactory;
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Bids</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="display-4 text-center">Chart</h1>
+                    <p class="lead text-center">Quantity of bids by month</p>
+                    <?php
+                    $chart = VisualBidsFactory::makeChartBids($dataBids);
+                    $chartData = $chart->getData();
+                    $chartView = $chart->getView();
+                    require_once __DIR__ . '/partials/' . $chartView . '.phtml';
+                    ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h2 class="display-4 text-center">Table</h1>
+                    <p class="lead text-center">Quantity of bids by month</p>
+                    <?php
+                    $table = VisualBidsFactory::makeTableBids($dataBids);
+                    $tableData = $table->getData();
+                    $tableView = $table->getView();
+                    require_once __DIR__ . '/partials/' . $tableView . '.phtml';
+                    ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <!-- Optional JavaScript -->
+    <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

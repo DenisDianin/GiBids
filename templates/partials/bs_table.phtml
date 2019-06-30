@@ -1,0 +1,25 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <?php
+            foreach ($tableData['Columns'] as $month) :
+                echo '<th scope="col">' . substr($month, 0, 3) . '</th>';
+            endforeach;
+            ?>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php
+        foreach ($tableData['Rows'] as $program => $quantity) :
+
+            echo '<tr><th scope="row">' . $program . '</th>';
+            foreach ($quantity as $monthValue) :
+                echo  '<td>' . $monthValue . '</td>';
+            endforeach;
+            echo '</tr>';
+        endforeach;
+        ?>
+    </tbody>
+</table>
